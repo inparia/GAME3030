@@ -7,6 +7,7 @@ public class CharacterShoot : MonoBehaviour
 {
     public GameObject projectile;
     public Transform m_SpawnTransform;
+
     // Start is called before the first frame update
     void Start()
     {

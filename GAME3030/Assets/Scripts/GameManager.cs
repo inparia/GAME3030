@@ -12,11 +12,15 @@ public class GameManager : MonoBehaviour
 {
     public StageLevel stageLevel;
     public bool spawnComplete;
+    public bool gameStarted;
+    public bool dontSpawn;
     // Start is called before the first frame update
     void Start()
     {
         stageLevel = StageLevel.LEVELONE;
         spawnComplete = false;
+        gameStarted = false;
+        dontSpawn = false;
     }
 
     // Update is called once per frame
