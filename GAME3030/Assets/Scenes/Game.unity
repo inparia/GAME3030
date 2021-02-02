@@ -1833,6 +1833,15 @@ PrefabInstance:
       propertyPath: m_Constraints
       value: 84
       objectReference: {fileID: 0}
+    - target: {fileID: 5963352670935280021, guid: 64af978a2b3ed174b82f4bf202d11f62, type: 3}
+      propertyPath: m_WarningMessage
+      value: "\nBinding warning: Some generic clip(s) animate transforms that are
+        already bound by a Humanoid avatar. These transforms can only be changed
+        by Humanoid clips.\n\tTransform 'Root'\n\tTransform 'Elbow_R'\n\tTransform
+        'Ball_L'\n\tTransform 'Ball_R'\n\tTransform 'Clavicle_L'\n\tTransform 'Neck'\n\tTransform
+        'Elbow_L'\n\tTransform 'Head'\n\tTransform 'UpperLeg_L'\n\tTransform 'UpperLeg_R'\n\tand
+        more ...\n\tFrom animation clip 'mixamo.com'"
+      objectReference: {fileID: 0}
     - target: {fileID: 6017737786335892651, guid: 64af978a2b3ed174b82f4bf202d11f62, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1876,6 +1885,30 @@ PrefabInstance:
     - target: {fileID: 6017737786335892651, guid: 64af978a2b3ed174b82f4bf202d11f62, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6022417441317227845, guid: 64af978a2b3ed174b82f4bf202d11f62, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.485
+      objectReference: {fileID: 0}
+    - target: {fileID: 6022417441317227845, guid: 64af978a2b3ed174b82f4bf202d11f62, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6022417441317227845, guid: 64af978a2b3ed174b82f4bf202d11f62, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9848078
+      objectReference: {fileID: 0}
+    - target: {fileID: 6022417441317227845, guid: 64af978a2b3ed174b82f4bf202d11f62, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6022417441317227845, guid: 64af978a2b3ed174b82f4bf202d11f62, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.17364825
+      objectReference: {fileID: 0}
+    - target: {fileID: 6022417441317227845, guid: 64af978a2b3ed174b82f4bf202d11f62, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -20
       objectReference: {fileID: 0}
     - target: {fileID: 6022890954525974901, guid: 64af978a2b3ed174b82f4bf202d11f62, type: 3}
       propertyPath: m_Name

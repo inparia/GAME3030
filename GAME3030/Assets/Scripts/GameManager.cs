@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
         spawnComplete = false;
         gameStarted = false;
         dontSpawn = false;
+        Cursor.visible = false;
     }
 
     // Update is called once per frame
