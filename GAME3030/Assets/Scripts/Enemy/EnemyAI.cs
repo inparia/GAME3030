@@ -25,10 +25,6 @@ public class EnemyAI : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Player")
-        {
-            Destroy(gameObject);
-        }
     }
 
     private void OnTriggerEnter(Collider collision)

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 
 
 
@@ -11,6 +11,7 @@ public class EnemySpawn : MonoBehaviour
     public float timeRemaining;
     private float originalTime;
     public int objSpawn, objTwoSpawn, objThreeSpawn, objFourSpawn;
+    public Button button;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +38,11 @@ public class EnemySpawn : MonoBehaviour
         else if (objFourSpawn != 20 && GameManager.Instance.stageLevel == StageLevel.LEVELFOUR)
         {
             spawnEnemy();
+        }
+        if (GameManager.Instance.levelFourEnemy == 0 && GameManager.Instance.stageLevel == StageLevel.LEVELFOUR)
+        {
+            Cursor.visible = true;
+            button.gameObject.SetActive(true);
         }
     }
 
