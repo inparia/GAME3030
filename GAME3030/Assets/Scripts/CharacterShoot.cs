@@ -7,7 +7,6 @@ public class CharacterShoot : MonoBehaviour
 {
     public GameObject projectile;
     public Transform m_SpawnTransform;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +17,7 @@ public class CharacterShoot : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0))
         {
-            var bullet = Instantiate(projectile, m_SpawnTransform.position, gameObject.transform.rotation);
+            var bullet = Instantiate(projectile, m_SpawnTransform.position, transform.rotation);
         }
     }
 }
