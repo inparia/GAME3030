@@ -30,7 +30,7 @@ public class CharacterMovement : MonoBehaviour
         //turner = Input.GetAxis("Mouse X") * sensitivity;
             //Code for action on mouse moving right
         
-        transform.rotation = Quaternion.Euler(new Vector3(0f, -angle - 90f, 0f));
+        transform.rotation = Quaternion.Euler(new Vector3(0f, -angle - 90, 0f));
 
     }
 

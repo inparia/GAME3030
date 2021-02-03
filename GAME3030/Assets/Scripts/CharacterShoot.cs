@@ -18,7 +18,7 @@ public class CharacterShoot : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0))
         {
-            var bullet = Instantiate(projectile, m_SpawnTransform.position, m_SpawnTransform.rotation);
+            var bullet = Instantiate(projectile, m_SpawnTransform.position, gameObject.transform.rotation);
         }
     }
 }

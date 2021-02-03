@@ -5,7 +5,7 @@ using UnityEngine;
 public enum SkillType
 {
     SLOW,
-    DEATH
+    DYNAMITE
 }
 public class UseSkill : MonoBehaviour
 {
@@ -34,7 +34,13 @@ public class UseSkill : MonoBehaviour
                 skillObject.tag = "SlowPlane";
                 skillObject.GetComponent<Renderer>().material.SetColor("_Color", Color.green);
             }
-            
+
+            else if (skillType == SkillType.DYNAMITE)
+            {
+                skillObject.GetComponent<Renderer>().material.SetColor("_Color", Color.red);
+            }
+
+
             skillUsed = true;
         }
 

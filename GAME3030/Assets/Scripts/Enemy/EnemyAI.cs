@@ -37,11 +37,13 @@ public class EnemyAI : MonoBehaviour
         {
             Destroy(gameObject);
             Destroy(collision.gameObject);
+            
         }
         if(collision.gameObject.tag == "SlowPlane")
         {
             speed = 0.5f;
         }
+
     }
 
     private void OnTriggerExit(Collider collision)
@@ -49,6 +51,29 @@ public class EnemyAI : MonoBehaviour
         if (collision.gameObject.tag == "SlowPlane")
         {
             speed = 1.0f;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (GameManager.Instance.stageLevel == StageLevel.LEVELONE)
+        {
+            GameManager.Instance.levelOneEnemy--;
+        }
+
+        else if (GameManager.Instance.stageLevel == StageLevel.LEVELTWO)
+        {
+            GameManager.Instance.levelTwoEnemy--;
+        }
+        else if (GameManager.Instance.stageLevel == StageLevel.LEVELTHREE)
+        {
+            GameManager.Instance.levelThreeEnemy--;
+
+        }
+
+        else if (GameManager.Instance.stageLevel == StageLevel.LEVELFOUR)
+        {
+            GameManager.Instance.levelFourEnemy--;
         }
     }
 }
