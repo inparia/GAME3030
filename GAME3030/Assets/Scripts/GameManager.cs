@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 
 public enum StageLevel
 {
@@ -13,7 +13,7 @@ public enum StageLevel
 [System.Serializable]
 public class gameLevels
 {
-    public StageLevel stageLevel;
+    public int stageLevel;
     public int levels;
     public int nextLevels;
     
@@ -50,14 +50,11 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
-    public bool spawnComplete;
-    public bool gameStarted;
-    public StageLevel gameStageLevel;
+    public int gameStageLevel;
     public gameLevels[] gameLevel;
     // Start is called before the first frame update
     void Start()
     {
-        
         gameReset();
     }
 
@@ -68,26 +65,26 @@ public class GameManager : MonoBehaviour
         {
             Application.Quit();
         }
-       if(gameLevel[0].nextLevels <= 0)
+        if (gameLevel[gameLevel.Length - 1].nextLevels == 0 && gameStageLevel == gameLevel.Length - 1)
         {
-            gameStageLevel = gameLevel[1].stageLevel;
+            SceneManager.LoadScene("Main");
+            Cursor.visible = true;
+            gameReset();
         }
-       if(gameLevel[1].nextLevels <= 0)
+
+        else if (gameLevel[gameStageLevel].nextLevels <= 0 && gameStageLevel <= gameLevel.Length - 1)
         {
-            gameStageLevel = gameLevel[2].stageLevel;
-        }
-       if(gameLevel[3].nextLevels <= 0)
-        {
-            gameStageLevel = gameLevel[3].stageLevel;
+            gameStageLevel++;
         }
     }
 
     void gameReset()
     {
+        for(int i = 0; i < gameLevel.Length; i++)
+        {
+            gameLevel[i].nextLevels = gameLevel[i].levels;
+        }
         gameStageLevel = gameLevel[0].stageLevel;
-        spawnComplete = false;
-        gameStarted = false;
-        Cursor.visible = false;
     }
 
 }

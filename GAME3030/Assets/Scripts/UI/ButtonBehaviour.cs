@@ -24,6 +24,7 @@ public class ButtonBehaviour : MonoBehaviour
     public void playGame()
     {
         SceneManager.LoadScene("Game");
+        Cursor.visible = false;
     }
 
     public void quitGame()

@@ -11,7 +11,7 @@ public class GroundFog : MonoBehaviour
     void Start()
     {
         Destroy(gameObject, 7);
-        particle = Instantiate(particleSystem, transform.position, Quaternion.identity) ;
+        particle = Instantiate(particleSystem, new Vector3(transform.position.x, 0.5f, transform.position.z), Quaternion.identity) ;
         particle.Play();
     }
 

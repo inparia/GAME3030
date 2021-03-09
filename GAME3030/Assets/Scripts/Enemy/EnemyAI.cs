@@ -59,22 +59,8 @@ public class EnemyAI : MonoBehaviour
         animator.SetBool("isDead", true);
         dead = true;
     }
-    private void OnDestroy()
+    void OnDestroy()
     {
-        switch(GameManager.Instance.gameStageLevel)
-        {
-            case StageLevel.LEVELONE:
-                GameManager.Instance.gameLevel[0].nextLevels--;
-                break;
-            case StageLevel.LEVELTWO:
-                GameManager.Instance.gameLevel[1].nextLevels--;
-                break;
-            case StageLevel.LEVELTHREE:
-                GameManager.Instance.gameLevel[2].nextLevels--;
-                break;
-            case StageLevel.LEVELFOUR:
-                GameManager.Instance.gameLevel[3].nextLevels--;
-                break;
-        }
+        GameManager.Instance.gameLevel[GameManager.Instance.gameStageLevel].nextLevels--;
     }
 }
