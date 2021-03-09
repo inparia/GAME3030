@@ -23,10 +23,12 @@ public class EnemyAI : MonoBehaviour
         if(enemyIdle)
         {
             GetComponent<NavMeshAgent>().isStopped = true;
+            animator.SetBool("isIdle", true);
         }
         else if(!enemyIdle && !dead)
         {
             GetComponent<NavMeshAgent>().isStopped = false;
+            animator.SetBool("isIdle", false);
         }
 
         if(gameObject.transform.position != player.transform.position && !dead && !enemyIdle)
