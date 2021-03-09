@@ -19,11 +19,27 @@ public class GroundFog : MonoBehaviour
     void Update()
     {
 
-        colliding = Physics.OverlapSphere(transform.position, 10.0f);
+        colliding = Physics.OverlapSphere(transform.position, 6.0f);
 
+        foreach (Collider hit in colliding)
+        {
+
+            if (hit && hit.gameObject.CompareTag("Enemy"))
+            {
+                hit.gameObject.GetComponent<EnemyAI>().enemyIdle = true;
+            }
+        }
     }
     void OnDestroy()
     {
         particle.GetComponent<DeleteParticle>().setDeleteTime(1);
+        foreach (Collider hit in colliding)
+        {
+
+            if (hit && hit.gameObject.CompareTag("Enemy"))
+            {
+                hit.gameObject.GetComponent<EnemyAI>().enemyIdle = false;
+            }
+        }
     }
 }

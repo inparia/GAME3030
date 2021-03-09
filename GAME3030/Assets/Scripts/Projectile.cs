@@ -24,4 +24,12 @@ public class Projectile : MonoBehaviour
         m_rigidbody.AddForce(transform.forward * speed);
         Destroy(gameObject, lifespan);
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "Obstacle")
+        {
+            Destroy(gameObject);
+        }
+    }
 }

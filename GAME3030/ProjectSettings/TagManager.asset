@@ -10,6 +10,7 @@ TagManager:
   - Dynamite
   - GroundFog
   - Ground
+  - Obstacle
   layers:
   - Default
   - TransparentFX
@@ -25,7 +26,7 @@ TagManager:
   - Barrel
   - Player
   - Zombie
-  - 
+  - Bullet
   - 
   - 
   - 
