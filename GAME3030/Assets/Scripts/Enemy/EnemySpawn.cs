@@ -10,36 +10,39 @@ public class EnemySpawn : MonoBehaviour
     public GameObject enemy;
     public float timeRemaining;
     private float originalTime;
-    public int objSpawn, objTwoSpawn, objThreeSpawn, objFourSpawn;
+    public int[] objToSpawn;
     public Button button;
     // Start is called before the first frame update
     void Start()
     {
         originalTime = timeRemaining;
+        objToSpawn = new int[GameManager.Instance.gameLevel.Length];
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (objSpawn != 5 && GameManager.Instance.stageLevel == StageLevel.LEVELONE)
+        switch(GameManager.Instance.gameStageLevel)
         {
-            spawnEnemy();
+            case StageLevel.LEVELONE:
+                if(objToSpawn[0] != GameManager.Instance.gameLevel[0].levels / 5)
+                    spawnEnemy();
+                 break;
+            case StageLevel.LEVELTWO:
+                if (objToSpawn[1] != GameManager.Instance.gameLevel[1].levels / 5)
+                    spawnEnemy();
+                break;
+            case StageLevel.LEVELTHREE:
+                if (objToSpawn[2] != GameManager.Instance.gameLevel[2].levels / 5)
+                    spawnEnemy();
+                break;
+            case StageLevel.LEVELFOUR:
+                if (objToSpawn[3] != GameManager.Instance.gameLevel[3].levels / 5)
+                    spawnEnemy();
+                break;
         }
-
-        else if (objTwoSpawn != 10 && GameManager.Instance.stageLevel == StageLevel.LEVELTWO)
-        {
-            spawnEnemy();
-        }
-        else if (objThreeSpawn != 15 && GameManager.Instance.stageLevel == StageLevel.LEVELTHREE)
-        {
-            spawnEnemy();
-        }
-
-        else if (objFourSpawn != 20 && GameManager.Instance.stageLevel == StageLevel.LEVELFOUR)
-        {
-            spawnEnemy();
-        }
-        if (GameManager.Instance.levelFourEnemy == 0 && GameManager.Instance.stageLevel == StageLevel.LEVELFOUR)
+        
+        if (GameManager.Instance.gameLevel[3].levels == 0 && GameManager.Instance.gameStageLevel == StageLevel.LEVELFOUR)
         {
             Cursor.visible = true;
             button.gameObject.SetActive(true);
@@ -56,43 +59,22 @@ public class EnemySpawn : MonoBehaviour
         {
             var tempEnemy = Instantiate(enemy, transform.position, transform.rotation);
             timeRemaining = originalTime;
-            if (GameManager.Instance.stageLevel == StageLevel.LEVELONE)
+            switch (GameManager.Instance.gameStageLevel)
             {
-                objSpawn++;
-            }
-            else if (GameManager.Instance.stageLevel == StageLevel.LEVELTWO)
-            {
-                objTwoSpawn++;
-            }
-            else if (GameManager.Instance.stageLevel == StageLevel.LEVELTHREE)
-            {
-                objThreeSpawn++;
-            }
-            else if (GameManager.Instance.stageLevel == StageLevel.LEVELFOUR)
-            {
-                objFourSpawn++;
+                case StageLevel.LEVELONE:
+                    objToSpawn[0]++;
+                    break;
+                case StageLevel.LEVELTWO:
+                    objToSpawn[1]++;
+                    break;
+                case StageLevel.LEVELTHREE:
+                    objToSpawn[2]++;
+                    break;
+                case StageLevel.LEVELFOUR:
+                    objToSpawn[3]++;
+                    break;
             }
         }
-            //if (!gameManager.spawnComplete)
-            //{
-            //    if (timeRemaining > 0)
-            //    {
-            //        timeRemaining -= Time.deltaTime;
-            //    }
-            //    else
-            //    {
-            //        timeRemaining = 3;
-            //        return true;
-            //    }
-            //for (int i = 0; i < numtoSpawn; i++)
-            //    {
-            //        var tempEnemy = Instantiate(enemy, transform.position, transform.rotation);
-            //        if (i == numtoSpawn - 1)
-            //        {
-            //            gameManager.spawnComplete = true;
-            //        }
-            //    }
-            //}
 
     }
 }

@@ -61,19 +61,19 @@ public class EnemyAI : MonoBehaviour
     }
     private void OnDestroy()
     {
-        switch(GameManager.Instance.stageLevel)
+        switch(GameManager.Instance.gameStageLevel)
         {
             case StageLevel.LEVELONE:
-                GameManager.Instance.levelOneEnemy--;
+                GameManager.Instance.gameLevel[0].nextLevels--;
                 break;
             case StageLevel.LEVELTWO:
-                GameManager.Instance.levelTwoEnemy--;
+                GameManager.Instance.gameLevel[1].nextLevels--;
                 break;
             case StageLevel.LEVELTHREE:
-                GameManager.Instance.levelThreeEnemy--;
+                GameManager.Instance.gameLevel[2].nextLevels--;
                 break;
             case StageLevel.LEVELFOUR:
-                GameManager.Instance.levelFourEnemy--;
+                GameManager.Instance.gameLevel[3].nextLevels--;
                 break;
         }
     }
