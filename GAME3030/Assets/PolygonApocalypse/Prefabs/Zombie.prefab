@@ -2090,6 +2090,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dead: 0
   enemyIdle: 0
+  enemyAttack: 0
 --- !u!54 &7574015602232782932
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2131,8 +2132,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.36519822, y: 1.8577361, z: 0.12770301}
-  m_Center: {x: -0.0026901513, y: 0.86824346, z: -0.010769874}
+  m_Size: {x: 0.43869805, y: 1.8577361, z: 0.6448152}
+  m_Center: {x: -0.017723918, y: 0.86824346, z: 0.12400536}
 --- !u!195 &4351240414473158526
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -6,15 +6,18 @@ using UnityEngine.AI;
 public class EnemyAI : MonoBehaviour
 {
     private GameObject player;
-    public bool dead, enemyIdle;
+    public bool dead, enemyIdle, enemyAttack;
     private Animator animator;
+    private NavMeshAgent navMeshAgent;
     // Start is called before the first frame update
     void Start()
     {
+        navMeshAgent = GetComponent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player");
         animator = GetComponent<Animator>();
         dead = false;
         enemyIdle = false;
+        enemyAttack = false;
     }
 
     // Update is called once per frame
@@ -22,18 +25,18 @@ public class EnemyAI : MonoBehaviour
     {
         if(enemyIdle)
         {
-            GetComponent<NavMeshAgent>().isStopped = true;
+            navMeshAgent.isStopped = true;
             animator.SetBool("isIdle", true);
         }
         else if(!enemyIdle && !dead)
         {
-            GetComponent<NavMeshAgent>().isStopped = false;
+            navMeshAgent.isStopped = false;
             animator.SetBool("isIdle", false);
         }
 
-        if(gameObject.transform.position != player.transform.position && !dead && !enemyIdle)
+        if(gameObject.transform.position != player.transform.position && !dead && !enemyIdle && !enemyAttack)
         {
-            GetComponent<NavMeshAgent>().destination = player.transform.position;
+            navMeshAgent.destination = player.transform.position;
             transform.LookAt(player.transform);
         }
         
@@ -48,13 +51,22 @@ public class EnemyAI : MonoBehaviour
 
             Destroy(collision.gameObject);
 
+
+        }
+
+        if (collision.gameObject.tag == "Player")
+        {
+            navMeshAgent.isStopped = true;
+            enemyAttack = true;
+            animator.SetBool("isAttack", true);
+            Destroy(gameObject, 2.7f);
         }
     }
 
 
     public void killEnemy()
     {
-        GetComponent<NavMeshAgent>().isStopped = true;
+        navMeshAgent.isStopped = true;
         Destroy(gameObject, 2);
         animator.SetBool("isDead", true);
         dead = true;
@@ -62,5 +74,9 @@ public class EnemyAI : MonoBehaviour
     void OnDestroy()
     {
         GameManager.Instance.gameLevel[GameManager.Instance.gameStageLevel].nextLevels--;
+        if(enemyAttack)
+        {
+            GameManager.Instance.playerHp--;
+        }
     }
 }

@@ -3,13 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public enum StageLevel
-{
-    LEVELONE,
-    LEVELTWO,
-    LEVELTHREE,
-    LEVELFOUR
-}
 [System.Serializable]
 public class gameLevels
 {
@@ -52,6 +45,7 @@ public class GameManager : MonoBehaviour
 
     public int gameStageLevel;
     public gameLevels[] gameLevel;
+    public int playerHp;
     // Start is called before the first frame update
     void Start()
     {
@@ -65,7 +59,9 @@ public class GameManager : MonoBehaviour
         {
             Application.Quit();
         }
-        if (gameLevel[gameLevel.Length - 1].nextLevels == 0 && gameStageLevel == gameLevel.Length - 1)
+
+
+        if ((gameLevel[gameLevel.Length - 1].nextLevels == 0 && gameStageLevel == gameLevel.Length - 1) || playerHp <= 0)
         {
             SceneManager.LoadScene("Main");
             Cursor.visible = true;
@@ -85,6 +81,7 @@ public class GameManager : MonoBehaviour
             gameLevel[i].nextLevels = gameLevel[i].levels;
         }
         gameStageLevel = gameLevel[0].stageLevel;
+        playerHp = 5;
     }
 
 }
