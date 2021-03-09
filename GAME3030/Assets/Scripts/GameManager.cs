@@ -60,10 +60,16 @@ public class GameManager : MonoBehaviour
             Application.Quit();
         }
 
-
-        if ((gameLevel[gameLevel.Length - 1].nextLevels == 0 && gameStageLevel == gameLevel.Length - 1) || playerHp <= 0)
+        if(playerHp <= 0)
         {
-            SceneManager.LoadScene("Main");
+            SceneManager.LoadScene("Lose");
+            Cursor.visible = true;
+            gameReset();
+        }
+
+        if ((gameLevel[gameLevel.Length - 1].nextLevels == 0 && gameStageLevel == gameLevel.Length - 1))
+        {
+            SceneManager.LoadScene("Win");
             Cursor.visible = true;
             gameReset();
         }
@@ -74,7 +80,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void gameReset()
+    public void gameReset()
     {
         for(int i = 0; i < gameLevel.Length; i++)
         {

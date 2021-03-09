@@ -25,6 +25,7 @@ public class ButtonBehaviour : MonoBehaviour
     {
         SceneManager.LoadScene("Game");
         Cursor.visible = false;
+        GameManager.Instance.gameReset();
     }
 
     public void quitGame()

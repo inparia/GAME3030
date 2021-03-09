@@ -9,6 +9,7 @@ public class EnemyAI : MonoBehaviour
     public bool dead, enemyIdle, enemyAttack;
     private Animator animator;
     private NavMeshAgent navMeshAgent;
+    public AudioSource zombieDeath;
     // Start is called before the first frame update
     void Start()
     {
@@ -67,16 +68,19 @@ public class EnemyAI : MonoBehaviour
     public void killEnemy()
     {
         navMeshAgent.isStopped = true;
+        if(!dead && !enemyAttack)
+            zombieDeath.Play();
         Destroy(gameObject, 2);
         animator.SetBool("isDead", true);
         dead = true;
+        
     }
     void OnDestroy()
     {
         GameManager.Instance.gameLevel[GameManager.Instance.gameStageLevel].nextLevels--;
         if(enemyAttack)
         {
-            GameManager.Instance.playerHp--;
+            player.GetComponent<Player>().loseHp();
         }
     }
 }

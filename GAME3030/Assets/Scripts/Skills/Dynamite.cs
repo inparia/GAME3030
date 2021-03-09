@@ -8,12 +8,14 @@ public class Dynamite : MonoBehaviour
     public ParticleSystem particleSystem;
     private ParticleSystem particle;
     public Collider[] colliding;
+    public AudioSource explosion, tempAudio;
     // Start is called before the first frame update
     void Start()
     {
         Destroy(gameObject, 5);
         timeRemaining = 5.0f;
         particle = Instantiate(particleSystem, transform.position, Quaternion.identity);
+        tempAudio = Instantiate(explosion, transform.position, Quaternion.identity);
     }
 
     // Update is called once per frame
@@ -37,9 +39,11 @@ public class Dynamite : MonoBehaviour
 
     void OnDestroy()
     {
+        
         particle.Play();
+        tempAudio.Play();
         particle.GetComponent<DeleteParticle>().setDeleteTime(1);
-
+        tempAudio.GetComponent<DeleteParticle>().setDeleteTime(1);
         foreach (Collider hit in colliding)
         {
 
