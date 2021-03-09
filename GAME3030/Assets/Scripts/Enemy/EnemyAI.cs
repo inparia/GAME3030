@@ -1,24 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
     private GameObject player;
-    public float speed;
+    public bool dead;
+    private Animator animator;
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        speed = 1.0f;
+        animator = GetComponent<Animator>();
+        dead = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(gameObject.transform.position != player.transform.position)
+        if(gameObject.transform.position != player.transform.position && !dead)
         {
-            gameObject.transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+            GetComponent<NavMeshAgent>().destination = player.transform.position;
             transform.LookAt(player.transform);
         }
     }
@@ -31,13 +34,13 @@ public class EnemyAI : MonoBehaviour
     {
         if (collision.gameObject.tag == "Bullet")
         {
-            Destroy(gameObject);
+            killEnemy();
             Destroy(collision.gameObject);
             
         }
         if(collision.gameObject.tag == "SlowPlane")
         {
-            speed = 0.5f;
+            GetComponent<NavMeshAgent>().speed = 0.5f;
         }
 
     }
@@ -46,30 +49,32 @@ public class EnemyAI : MonoBehaviour
     {
         if (collision.gameObject.tag == "SlowPlane")
         {
-            speed = 1.0f;
+            GetComponent<NavMeshAgent>().speed = 1.0f;
         }
     }
-
+    public void killEnemy()
+    {
+        GetComponent<NavMeshAgent>().isStopped = true;
+        Destroy(gameObject, 2);
+        animator.SetBool("isDead", true);
+        dead = true;
+    }
     private void OnDestroy()
     {
-        if (GameManager.Instance.stageLevel == StageLevel.LEVELONE)
+        switch(GameManager.Instance.stageLevel)
         {
-            GameManager.Instance.levelOneEnemy--;
-        }
-
-        else if (GameManager.Instance.stageLevel == StageLevel.LEVELTWO)
-        {
-            GameManager.Instance.levelTwoEnemy--;
-        }
-        else if (GameManager.Instance.stageLevel == StageLevel.LEVELTHREE)
-        {
-            GameManager.Instance.levelThreeEnemy--;
-
-        }
-
-        else if (GameManager.Instance.stageLevel == StageLevel.LEVELFOUR)
-        {
-            GameManager.Instance.levelFourEnemy--;
+            case StageLevel.LEVELONE:
+                GameManager.Instance.levelOneEnemy--;
+                break;
+            case StageLevel.LEVELTWO:
+                GameManager.Instance.levelTwoEnemy--;
+                break;
+            case StageLevel.LEVELTHREE:
+                GameManager.Instance.levelThreeEnemy--;
+                break;
+            case StageLevel.LEVELFOUR:
+                GameManager.Instance.levelFourEnemy--;
+                break;
         }
     }
 }

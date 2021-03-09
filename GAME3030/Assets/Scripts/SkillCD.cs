@@ -19,23 +19,18 @@ public class SkillCD : MonoBehaviour
         
         if (GetComponentInParent<UseSkill>().skillUsed)
         {
-            if(GetComponentInParent<UseSkill>().timeRemaining < 2)
-            {
-                gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x, 0.6f, gameObject.transform.localScale.z);
-            }
+            gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x, 
+                GetComponentInParent<UseSkill>().timeRemaining/ GetComponentInParent<UseSkill>().givenTime, 
+                gameObject.transform.localScale.z);
 
-            if(GetComponentInParent<UseSkill>().timeRemaining < 1)
-            {
-                gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x, 0.3f, gameObject.transform.localScale.z);
-            }
+        }
 
-            }
-            if(!GetComponentInParent<UseSkill>().skillUsed)
-            {
-                gameObject.transform.localScale = originalScale;
-                timeRemaining = 3;
-                gameObject.SetActive(false);
-            }
- 
+        if(!GetComponentInParent<UseSkill>().skillUsed)
+        {
+        gameObject.transform.localScale = originalScale;
+        timeRemaining = GetComponentInParent<UseSkill>().givenTime;
+        gameObject.SetActive(false);
+        }
     }
+
 }

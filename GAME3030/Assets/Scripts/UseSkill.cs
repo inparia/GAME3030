@@ -10,6 +10,7 @@ public enum SkillType
 public class UseSkill : MonoBehaviour
 {
     public char skillKey;
+    public float givenTime;
     public float timeRemaining;
     public bool skillUsed;
     public GameObject cdObj, skillObj;
@@ -18,7 +19,7 @@ public class UseSkill : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        timeRemaining = 3;
+        timeRemaining = givenTime;
         skillUsed = false;
         player = GameObject.FindGameObjectWithTag("Player");
     }
@@ -28,10 +29,10 @@ public class UseSkill : MonoBehaviour
     {
         if(!skillUsed && Input.GetKeyDown(skillKey.ToString()))
         {
-            var skillObject = Instantiate(skillObj, player.transform.position, player.transform.rotation);
+            var skillObject = Instantiate(skillObj, player.transform.position, Quaternion.identity);
+
             if (skillType == SkillType.SLOW)
             {
-                skillObject.tag = "SlowPlane";
                 skillObject.GetComponent<Renderer>().material.SetColor("_Color", Color.green);
             }
 
@@ -53,7 +54,7 @@ public class UseSkill : MonoBehaviour
             }
             else
             {
-                timeRemaining = 3;
+                timeRemaining = givenTime;
                 skillUsed = false;
             }
         }

@@ -1,41 +1,52 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class Dynamite : MonoBehaviour
 {
     public float timeRemaining;
-    public bool destroyNearby;
+    public TextMesh text;
+    public ParticleSystem particleSystem;
+    private ParticleSystem particle;
+    public Collider[] colliding;
     // Start is called before the first frame update
     void Start()
     {
-        destroyNearby = false;
+        Destroy(gameObject, 5);
         timeRemaining = 5.0f;
+        particle = Instantiate(particleSystem, transform.position, Quaternion.identity);
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        colliding = Physics.OverlapSphere(transform.position, 2.0f);
+
         if (timeRemaining > 0)
         {
+            
             timeRemaining -= Time.deltaTime;
         }
         else
         {
-            destroyNearby = true;
         }
+
+        text.text = ((int)timeRemaining + 1).ToString();
     }
 
-    private void OnTriggerStay(Collider other)
-    {
-        if (destroyNearby)
-        {
-            if (other.gameObject.tag == "Enemy")
-            {
-                Destroy(other.gameObject);
-            }
 
-            Destroy(gameObject);
+    void OnDestroy()
+    {
+        particle.Play();
+        particle.GetComponent<DeleteParticle>().setDeleteTime(1);
+
+        foreach (Collider hit in colliding)
+        {
+
+            if (hit && hit.gameObject.CompareTag("Enemy"))
+            {
+                hit.gameObject.GetComponent<EnemyAI>().killEnemy();
+            }
         }
     }
 }

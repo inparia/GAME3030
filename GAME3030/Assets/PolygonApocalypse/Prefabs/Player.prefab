@@ -633,9 +633,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e4855862e3edca4f9a0a837a2aa158b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 5715478800711321456, guid: 4186f8a6ba9b7eb4ca5d6f61b0228728, type: 3}
+  projectile: {fileID: 5715478800711321456, guid: 4186f8a6ba9b7eb4ca5d6f61b0228728,
+    type: 3}
   m_SpawnTransform: {fileID: 6022417441317227845}
-  coneTransform: {fileID: 0}
 --- !u!114 &6022417440596400202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -682,7 +682,7 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 1.1, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &6022936852851505365
 GameObject:
   m_ObjectHideFlags: 0
