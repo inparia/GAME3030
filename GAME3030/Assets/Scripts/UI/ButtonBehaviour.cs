@@ -16,6 +16,10 @@ public class ButtonBehaviour : MonoBehaviour
         
     }
 
+    public void instructionScene()
+    {
+        SceneManager.LoadScene("Instruction");
+    }
     public void quitToMenu()
     {
         SceneManager.LoadScene("Main");
@@ -23,6 +27,7 @@ public class ButtonBehaviour : MonoBehaviour
 
     public void playGame()
     {
+        GameObject.FindGameObjectWithTag("Music").GetComponent<MusicClass>().StopMusic();
         SceneManager.LoadScene("Game");
         Cursor.visible = false;
         GameManager.Instance.gameReset();

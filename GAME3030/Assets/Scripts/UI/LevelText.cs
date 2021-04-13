@@ -4,15 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 public class LevelText : MonoBehaviour
 {
+    private TMPro.TextMeshProUGUI tMPro;
     // Start is called before the first frame update
     void Start()
     {
-        
+        tMPro = GetComponent<TMPro.TextMeshProUGUI>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        gameObject.GetComponent<Text>().text = "Level : " + (GameManager.Instance.gameStageLevel + 1).ToString();
+        tMPro.text = "Level : " + (GameManager.Instance.gameStageLevel + 1).ToString();
     }
 }

@@ -5,16 +5,16 @@ using UnityEngine.UI;
 public class EnemiesLeft : MonoBehaviour
 {
 
-    private Text gameText;
+    private TMPro.TextMeshProUGUI tMPro;
     // Start is called before the first frame update
     void Start()
     {
-        gameText = GetComponent<Text>();
+        tMPro = GetComponent<TMPro.TextMeshProUGUI>();
     }
 
     // Update is called once per frame
     void Update()
     {
-       gameText.text = "Enemies Left : " + GameManager.Instance.gameLevel[GameManager.Instance.gameStageLevel].nextLevels;
+        tMPro.text = "Enemies Left : " + GameManager.Instance.gameLevel[GameManager.Instance.gameStageLevel].nextLevels;
     }
 }

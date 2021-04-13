@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class EnemyAI : MonoBehaviour
 {
     private GameObject player;
-    public bool dead, enemyIdle, enemyAttack;
+    public bool dead, enemyIdle, enemyAttack, playerInRange, inAttacking;
     private Animator animator;
     private NavMeshAgent navMeshAgent;
     public AudioSource zombieDeath;
@@ -19,28 +19,32 @@ public class EnemyAI : MonoBehaviour
         dead = false;
         enemyIdle = false;
         enemyAttack = false;
+        playerInRange = false;
+        inAttacking = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(enemyIdle)
+        if (!GameManager.Instance.gamePaused)
         {
-            navMeshAgent.isStopped = true;
-            animator.SetBool("isIdle", true);
-        }
-        else if(!enemyIdle && !dead)
-        {
-            navMeshAgent.isStopped = false;
-            animator.SetBool("isIdle", false);
-        }
+            if (enemyIdle)
+            {
+                navMeshAgent.isStopped = true;
+                animator.SetBool("isIdle", true);
+            }
+            else if (!enemyIdle && !dead)
+            {
+                navMeshAgent.isStopped = false;
+                animator.SetBool("isIdle", false);
+            }
 
-        if(gameObject.transform.position != player.transform.position && !dead && !enemyIdle && !enemyAttack)
-        {
-            navMeshAgent.destination = player.transform.position;
-            transform.LookAt(player.transform);
+            if (gameObject.transform.position != player.transform.position && !dead && !enemyIdle && !enemyAttack)
+            {
+                navMeshAgent.destination = player.transform.position;
+                transform.LookAt(player.transform);
+            }
         }
-        
         
     }
 
@@ -55,16 +59,32 @@ public class EnemyAI : MonoBehaviour
 
         }
 
-        if (collision.gameObject.tag == "Player")
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Player" && !inAttacking)
         {
-            navMeshAgent.isStopped = true;
-            enemyAttack = true;
-            animator.SetBool("isAttack", true);
-            Destroy(gameObject, 2.7f);
+            playerInRange = true;
+            StartCoroutine(enemyAttackAnimation(4f));
+        }
+    }
+    private void OnTriggerStay(Collider other)
+    {
+
+        if (other.gameObject.tag == "Player" && !inAttacking)
+        {
+            playerInRange = true;
+            StartCoroutine(enemyAttackAnimation(4f));
         }
     }
 
-
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            playerInRange = false;
+        }
+    }
     public void killEnemy()
     {
         navMeshAgent.isStopped = true;
@@ -78,9 +98,27 @@ public class EnemyAI : MonoBehaviour
     void OnDestroy()
     {
         GameManager.Instance.gameLevel[GameManager.Instance.gameStageLevel].nextLevels--;
-        if(enemyAttack)
+    }
+
+    public IEnumerator enemyAttackAnimation(float animationLength)
+    {
+        inAttacking = true;
+        navMeshAgent.isStopped = true;
+        enemyAttack = true;
+        animator.SetBool("isAttack", true);
+
+
+        yield return new WaitForSeconds(animationLength);
+
+
+        if (playerInRange)
         {
             player.GetComponent<Player>().loseHp();
         }
+
+        inAttacking = false;
+        animator.SetBool("isAttack", false);
+        enemyAttack = false;
+        navMeshAgent.isStopped = false;
     }
 }

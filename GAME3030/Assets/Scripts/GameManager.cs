@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour
     public int gameStageLevel;
     public gameLevels[] gameLevel;
     public int playerHp;
+    public bool gamePaused;
     // Start is called before the first frame update
     void Start()
     {
@@ -55,18 +56,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            Application.Quit();
-        }
-
-        if(playerHp <= 0)
-        {
-            SceneManager.LoadScene("Lose");
-            Cursor.visible = true;
-            gameReset();
-        }
-
+        
         if ((gameLevel[gameLevel.Length - 1].nextLevels == 0 && gameStageLevel == gameLevel.Length - 1))
         {
             SceneManager.LoadScene("Win");
@@ -82,12 +72,23 @@ public class GameManager : MonoBehaviour
 
     public void gameReset()
     {
-        for(int i = 0; i < gameLevel.Length; i++)
+        Time.timeScale = 1f;
+        for (int i = 0; i < gameLevel.Length; i++)
         {
             gameLevel[i].nextLevels = gameLevel[i].levels;
         }
         gameStageLevel = gameLevel[0].stageLevel;
         playerHp = 5;
-    }
+        gamePaused = false;
 
+    }
+    public void delayScene(float delay, string SceneName)
+    {
+        StartCoroutine(LoadLevelAfterDelay(delay, SceneName));
+    }
+    IEnumerator LoadLevelAfterDelay(float delay, string SceneName)
+    {
+        yield return new WaitForSeconds(delay);
+        SceneManager.LoadScene(SceneName);
+    }
 }

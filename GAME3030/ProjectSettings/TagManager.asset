@@ -11,6 +11,7 @@ TagManager:
   - GroundFog
   - Ground
   - Obstacle
+  - Music
   layers:
   - Default
   - TransparentFX

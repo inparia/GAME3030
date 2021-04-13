@@ -17,11 +17,15 @@ public class Player : MonoBehaviour
     void Update()
     {
         hp = GameManager.Instance.playerHp;
+
     }
 
     public void loseHp()
     {
-        GameManager.Instance.playerHp--;
-        playerHurt.Play();
+        if (!GetComponent<CharacterMovement>().isDead)
+        {
+            GameManager.Instance.playerHp--;
+            playerHurt.Play();
+        }
     }
 }
