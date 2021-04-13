@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class EnemyAI : MonoBehaviour
 {
     private GameObject player;
-    public bool dead, enemyIdle, enemyAttack, playerInRange, inAttacking;
+    public bool dead, enemyIdle, enemyAttack, playerInRange;
     private Animator animator;
     private NavMeshAgent navMeshAgent;
     public AudioSource zombieDeath;
@@ -20,7 +20,6 @@ public class EnemyAI : MonoBehaviour
         enemyIdle = false;
         enemyAttack = false;
         playerInRange = false;
-        inAttacking = false;
     }
 
     // Update is called once per frame
@@ -62,19 +61,21 @@ public class EnemyAI : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player" && !inAttacking)
+        if (other.gameObject.tag == "Player")
         {
             playerInRange = true;
-            StartCoroutine(enemyAttackAnimation(4f));
+            if(!enemyAttack)
+                StartCoroutine(enemyAttackAnimation(2f));
         }
     }
     private void OnTriggerStay(Collider other)
     {
 
-        if (other.gameObject.tag == "Player" && !inAttacking)
+        if (other.gameObject.tag == "Player")
         {
             playerInRange = true;
-            StartCoroutine(enemyAttackAnimation(4f));
+            if(!enemyAttack)
+                StartCoroutine(enemyAttackAnimation(2f));
         }
     }
 
@@ -102,7 +103,6 @@ public class EnemyAI : MonoBehaviour
 
     public IEnumerator enemyAttackAnimation(float animationLength)
     {
-        inAttacking = true;
         navMeshAgent.isStopped = true;
         enemyAttack = true;
         animator.SetBool("isAttack", true);
@@ -116,7 +116,6 @@ public class EnemyAI : MonoBehaviour
             player.GetComponent<Player>().loseHp();
         }
 
-        inAttacking = false;
         animator.SetBool("isAttack", false);
         enemyAttack = false;
         navMeshAgent.isStopped = false;
